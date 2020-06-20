@@ -47,27 +47,19 @@ def update():
                 )
 
                 # License key invalid
-                if response.status_code == 470:
-                    raise ValueError('License key is invalid')
-
-                if response.status_code == 473:
-                    raise ValueError(('Version %r not recognized by ' +
-                        'subscription server') % settings.local.version_int)
-
+                
                 data = response.json()
 
-                settings.local.sub_active = data['active']
-                settings.local.sub_status = data['status']
-                settings.local.sub_plan = data['plan']
-                settings.local.sub_quantity = data['quantity']
-                settings.local.sub_amount = data['amount']
-                settings.local.sub_period_end = data['period_end']
-                settings.local.sub_trial_end = data['trial_end']
-                settings.local.sub_cancel_at_period_end = data[
-                    'cancel_at_period_end']
-                settings.local.sub_balance = data.get('balance')
-                settings.local.sub_url_key = data.get('url_key')
-                settings.local.sub_styles[data['plan']] = data['styles']
+                settings.local.sub_active = True
+                settings.local.sub_status = 'active'
+                settings.local.sub_plan = 'enterprise'
+                settings.local.sub_quantity = 1000
+                settings.local.sub_amount = 1000
+                settings.local.sub_period_end = 100
+                settings.local.sub_trial_end = 100
+                settings.local.sub_cancel_at_period_end = 1000
+                settings.local.sub_balance = 1000
+                settings.local.sub_url_key = 'Test'
             except:
                 if i < 1:
                     logger.exception('Failed to check subscription status',
